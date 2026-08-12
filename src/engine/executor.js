@@ -69,8 +69,10 @@ async function executeStep(step, doc, { onCursorMove, onHighlight } = {}) {
   if (step.type === 'goto') {
     const iframe = doc.defaultView?.frameElement;
     if (iframe) {
-      const base = iframe.src.replace(/[^/]*$/, '');
-      iframe.src = base + step.value.replace(/^\//, '');
+      // Always reload the current demo page — generated tests use goto('/')
+      // to reset state, not to navigate away from the demo
+      const currentSrc = iframe.src;
+      iframe.src = currentSrc;
       await new Promise((resolve) => { iframe.addEventListener('load', resolve, { once: true }); });
     }
     return;
