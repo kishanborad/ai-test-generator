@@ -1,0 +1,55 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; color: #1e293b; background: #f8fafc; }
+a { color: #6366f1; text-decoration: none; }
+
+.demo-nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: #fff; border-bottom: 1px solid #e2e8f0; }
+.demo-nav-logo { font-size: 1.25rem; font-weight: 700; color: #6366f1; }
+.demo-nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.demo-nav-links a { color: #475569; font-size: 0.875rem; font-weight: 500; }
+.demo-nav-links a:hover { color: #6366f1; }
+.demo-hamburger { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #475569; }
+
+.demo-hero { text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, #eef2ff, #e0e7ff); }
+.demo-hero h1 { font-size: 2.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1rem; }
+.demo-hero p { font-size: 1.125rem; color: #64748b; max-width: 600px; margin: 0 auto 2rem; }
+.demo-btn { display: inline-block; padding: 0.75rem 2rem; background: #6366f1; color: #fff; border: none; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; }
+.demo-btn:hover { background: #4f46e5; }
+
+.demo-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 3rem 2rem; max-width: 900px; margin: 0 auto; }
+.demo-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; text-align: center; cursor: pointer; transition: box-shadow 0.2s; }
+.demo-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.demo-card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.demo-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.demo-card p { font-size: 0.875rem; color: #64748b; }
+
+.demo-form-section { padding: 3rem 2rem; max-width: 600px; margin: 0 auto; }
+.demo-form-section h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+.demo-field { margin-bottom: 1rem; }
+.demo-field label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem; color: #475569; }
+.demo-field input, .demo-field textarea { width: 100%; padding: 0.625rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.375rem; font-size: 0.875rem; }
+.demo-field textarea { resize: vertical; min-height: 80px; }
+.demo-field input:focus, .demo-field textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+.demo-error { color: #ef4444; font-size: 0.75rem; margin-top: 0.25rem; }
+.demo-success { background: #f0fdf4; border: 1px solid #86efac; border-radius: 0.5rem; padding: 1rem; color: #166534; text-align: center; margin-top: 1rem; }
+
+.demo-table-section { padding: 3rem 2rem; max-width: 800px; margin: 0 auto; }
+.demo-table-section h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+.demo-search { padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 1rem; width: 250px; }
+.demo-table { width: 100%; border-collapse: collapse; }
+.demo-table th, .demo-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.875rem; }
+.demo-table th { background: #f8fafc; font-weight: 600; cursor: pointer; user-select: none; }
+.demo-table th:hover { background: #f1f5f9; }
+.demo-table tr:hover { background: #f8fafc; }
+
+.demo-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.demo-modal { background: #fff; border-radius: 0.75rem; padding: 2rem; max-width: 480px; width: 90%; position: relative; }
+.demo-modal h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+.demo-modal p { font-size: 0.875rem; color: #64748b; margin-bottom: 1.5rem; }
+.demo-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #94a3b8; }
+
+@media (max-width: 768px) {
+  .demo-cards { grid-template-columns: 1fr; }
+  .demo-hamburger { display: block; }
+  .demo-nav-links { display: none; }
+  .demo-nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; right: 1rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; }
+}
