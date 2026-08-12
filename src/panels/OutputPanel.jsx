@@ -5,7 +5,7 @@ import { exportCypress } from '../export/cypress.js';
 
 const MonacoEditor = lazy(() => import('@monaco-editor/react'));
 
-export default function OutputPanel({ code, onCodeChange, onRun, running, report, onFix, tests }) {
+export default function OutputPanel({ code, onCodeChange, onRun, running, generating, report, onFix, tests }) {
   const [exportFormat, setExportFormat] = useState('playwright');
   const [tab, setTab] = useState('code');
 
@@ -29,7 +29,7 @@ export default function OutputPanel({ code, onCodeChange, onRun, running, report
   };
 
   return (
-    <aside className="w-[360px] bg-tg-surface border-l border-tg-border flex flex-col overflow-hidden">
+    <aside className="w-[400px] h-full bg-tg-surface border-l border-tg-border flex flex-col overflow-hidden">
       {/* Tabs */}
       <div className="flex border-b border-tg-border">
         {['code', 'results'].map((t) => (
@@ -49,7 +49,24 @@ export default function OutputPanel({ code, onCodeChange, onRun, running, report
       {/* Code tab */}
       {tab === 'code' && (
         <div className="flex-1 flex flex-col">
-          <div className="flex-1 min-h-0">
+          <div className="flex-1 min-h-0 relative">
+            {generating && (
+              <div className="absolute inset-0 z-10 bg-tg-bg/80 flex flex-col items-center justify-center gap-4">
+                <div className="flex gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-tg-accent animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-tg-accent animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-tg-accent animate-bounce" style={{ animationDelay: '300ms' }} />
+                </div>
+                <p className="text-sm text-tg-muted">Generating test cases...</p>
+                {code && (
+                  <div className="w-4/5 space-y-2 mt-2">
+                    {[...Array(6)].map((_, i) => (
+                      <div key={i} className="h-3 bg-tg-border/50 rounded animate-pulse" style={{ width: `${60 + Math.random() * 40}%`, animationDelay: `${i * 100}ms` }} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             <Suspense fallback={<div className="p-4 text-tg-muted text-sm">Loading editor...</div>}>
               <MonacoEditor
                 height="100%"
@@ -63,18 +80,18 @@ export default function OutputPanel({ code, onCodeChange, onRun, running, report
                   lineNumbers: 'on',
                   scrollBeyondLastLine: false,
                   wordWrap: 'on',
-                  readOnly: running,
+                  readOnly: running || generating,
                 }}
               />
             </Suspense>
           </div>
 
           {/* Action bar */}
-          <div className="p-3 border-t border-tg-border flex items-center gap-2">
+          <div className="p-3 border-t border-tg-border flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={onRun}
-              disabled={running || !code.trim()}
+              disabled={running || generating || !code.trim()}
               className="px-4 py-2 bg-tg-green text-white rounded-md text-sm font-medium
                 hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -83,7 +100,7 @@ export default function OutputPanel({ code, onCodeChange, onRun, running, report
             <select
               value={exportFormat}
               onChange={(e) => setExportFormat(e.target.value)}
-              className="bg-tg-bg border border-tg-border rounded-md px-2 py-2 text-sm text-tg-text"
+              className="bg-tg-bg border border-tg-border rounded-md px-2 py-2 text-sm text-tg-text flex-shrink-0"
             >
               <option value="playwright">Playwright</option>
               <option value="cypress">Cypress</option>
@@ -93,7 +110,7 @@ export default function OutputPanel({ code, onCodeChange, onRun, running, report
               onClick={handleExport}
               disabled={!tests || tests.length === 0}
               className="px-3 py-2 bg-tg-bg border border-tg-border rounded-md text-sm text-tg-text
-                hover:bg-tg-card transition-colors disabled:opacity-50"
+                hover:bg-tg-card transition-colors disabled:opacity-50 flex-shrink-0"
             >
               ↓ Export
             </button>
@@ -102,9 +119,9 @@ export default function OutputPanel({ code, onCodeChange, onRun, running, report
               onClick={handleCopy}
               disabled={!tests || tests.length === 0}
               className="px-3 py-2 bg-tg-bg border border-tg-border rounded-md text-sm text-tg-text
-                hover:bg-tg-card transition-colors disabled:opacity-50"
+                hover:bg-tg-card transition-colors disabled:opacity-50 flex-shrink-0"
             >
-              📋 Copy
+              Copy
             </button>
           </div>
         </div>

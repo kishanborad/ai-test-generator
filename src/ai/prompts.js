@@ -6,9 +6,10 @@ Rules:
 - Use await expect(page.locator(selector)).toBeVisible/toHaveText/toHaveCount/toContainText
 - Prefer data-testid selectors when available
 - Add a category comment before each test: // @category: happy|negative|edge
-- For every happy path test, generate at least one negative test and one edge case test
-- Group tests by category in your output
-- Each test should be self-contained and independent`;
+- Generate at least 5-6 tests per category (happy, negative, edge) for thorough coverage
+- Group tests by category in your output: all happy path tests first, then negative, then edge cases
+- Each test should be self-contained and independent
+- Cover different parts of the page in each test — forms, navigation, tables, modals, buttons`;
 
 /**
  * Build prompt for user story mode.

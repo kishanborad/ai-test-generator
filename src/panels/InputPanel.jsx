@@ -7,7 +7,7 @@ export default function InputPanel({
   url, onUrlChange, speed, onSpeedChange,
 }) {
   return (
-    <aside className="w-[300px] bg-tg-surface border-r border-tg-border p-4 flex flex-col gap-4 overflow-y-auto">
+    <aside className="w-[300px] h-full bg-tg-surface border-r border-tg-border p-4 flex flex-col gap-4 overflow-y-auto">
       {/* URL input */}
       <div>
         <label className="text-xs text-tg-muted uppercase tracking-wide block mb-1">Target</label>

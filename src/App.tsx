@@ -177,7 +177,7 @@ export default function App() {
   }, [modelId, getWorker]);
 
   return (
-    <div className="h-screen flex flex-col bg-tg-bg">
+    <div className="h-screen flex flex-col bg-tg-bg overflow-hidden">
       <Header
         mode={mode}
         onModeChange={(m: AppMode) => setMode(m)}
@@ -187,8 +187,9 @@ export default function App() {
         recording={recording}
       />
 
-      <div className="flex flex-1 overflow-hidden relative">
-        <div className="hidden lg:flex">
+      <div className="flex flex-1 min-h-0">
+        {/* Left panel — input */}
+        <div className="hidden lg:block flex-shrink-0">
           <InputPanel
             mode={mode}
             story={story}
@@ -206,28 +207,33 @@ export default function App() {
           />
         </div>
 
-        <IframePanel
-          url={url}
-          iframeRef={iframeRef}
-          cursor={cursor}
-          highlight={highlight}
-          running={running}
-        />
+        {/* Center — iframe */}
+        <div className="flex-1 min-w-0">
+          <IframePanel
+            url={url}
+            iframeRef={iframeRef}
+            cursor={cursor}
+            highlight={highlight}
+            running={running}
+          />
+        </div>
 
-        <div className="hidden lg:flex">
+        {/* Right panel — output */}
+        <div className="hidden lg:block flex-shrink-0">
           <OutputPanel
             code={code}
             onCodeChange={setCode}
             onRun={handleRun}
             running={running}
+            generating={generating}
             report={report}
             onFix={handleFix}
             tests={tests}
           />
         </div>
-
-        <MobileDisclaimer />
       </div>
+
+      <MobileDisclaimer />
     </div>
   );
 }
