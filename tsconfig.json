@@ -10,6 +10,7 @@
     "noUnusedParameters": true,
     "allowJs": true,
     "checkJs": false,
+    "skipLibCheck": true,
     "outDir": "dist",
     "paths": { "@/*": ["./src/*"] }
   },
