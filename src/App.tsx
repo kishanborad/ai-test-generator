@@ -8,6 +8,7 @@ import Header from './components/Header';
 import InputPanel from './panels/InputPanel';
 import IframePanel from './panels/IframePanel';
 import OutputPanel from './panels/OutputPanel';
+import MobileDisclaimer from './components/MobileDisclaimer';
 
 export default function App() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -186,22 +187,24 @@ export default function App() {
         recording={recording}
       />
 
-      <div className="flex flex-1 overflow-hidden">
-        <InputPanel
-          mode={mode}
-          story={story}
-          onStoryChange={setStory}
-          onGenerate={handleGenerate}
-          generating={generating}
-          actions={actions}
-          onRecord={handleRecord}
-          onStopRecord={handleStopRecord}
-          recording={recording}
-          url={url}
-          onUrlChange={setUrl}
-          speed={speed}
-          onSpeedChange={setSpeed}
-        />
+      <div className="flex flex-1 overflow-hidden relative">
+        <div className="hidden lg:flex">
+          <InputPanel
+            mode={mode}
+            story={story}
+            onStoryChange={setStory}
+            onGenerate={handleGenerate}
+            generating={generating}
+            actions={actions}
+            onRecord={handleRecord}
+            onStopRecord={handleStopRecord}
+            recording={recording}
+            url={url}
+            onUrlChange={setUrl}
+            speed={speed}
+            onSpeedChange={setSpeed}
+          />
+        </div>
 
         <IframePanel
           url={url}
@@ -211,15 +214,19 @@ export default function App() {
           running={running}
         />
 
-        <OutputPanel
-          code={code}
-          onCodeChange={setCode}
-          onRun={handleRun}
-          running={running}
-          report={report}
-          onFix={handleFix}
-          tests={tests}
-        />
+        <div className="hidden lg:flex">
+          <OutputPanel
+            code={code}
+            onCodeChange={setCode}
+            onRun={handleRun}
+            running={running}
+            report={report}
+            onFix={handleFix}
+            tests={tests}
+          />
+        </div>
+
+        <MobileDisclaimer />
       </div>
     </div>
   );
