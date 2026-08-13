@@ -4,6 +4,7 @@ import { parseTestCode } from './engine/parser';
 import { runTests } from './engine/executor';
 import { snapshotDOM } from './ai/domSnapshot';
 import { startRecording, stopRecording } from './recorder/recorder';
+import { ProblemBanner } from './ProblemBanner';
 import Header from './components/Header';
 import InputPanel from './panels/InputPanel';
 import IframePanel from './panels/IframePanel';
@@ -178,6 +179,7 @@ export default function App() {
 
   return (
     <div className="h-screen flex flex-col bg-tg-bg overflow-hidden">
+      <ProblemBanner />
       <Header
         mode={mode}
         onModeChange={(m: AppMode) => setMode(m)}
