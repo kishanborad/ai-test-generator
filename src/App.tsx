@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AppMode, ModelId, ParsedTest, RecordedAction, RunReport } from './types';
 import { parseTestCode } from './engine/parser';
 import { runTests } from './engine/executor';
@@ -46,6 +46,13 @@ export default function App() {
       workerRef.current = new Worker(new URL('./ai/worker.ts', import.meta.url), { type: 'module' });
     }
     return workerRef.current;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      workerRef.current?.terminate();
+      workerRef.current = null;
+    };
   }, []);
 
   const handleGenerate = useCallback(async () => {
